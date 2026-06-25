@@ -24,23 +24,15 @@ flutter pub get
 flutter run -d windows   # ou linux / macos
 ```
 
-### ⚠️ Peculiaridades deste ambiente (Windows + Git Bash)
+### Notas por ambiente
 
-Há três pegadinhas documentadas; se você usa **cmd/PowerShell**, pode ignorar a maior parte.
-
-1. **PATH no Git Bash:** o processo nativo do Flutter não lê o PATH em formato MSYS.
-   Use o helper: `./scripts/dev.sh "<comando flutter>"`.
-   ```bash
-   ./scripts/dev.sh "run -d windows"
-   ./scripts/dev.sh "analyze"
-   ./scripts/dev.sh "build windows"
-   ```
-2. **Proxy NTLM × `flutter test`:** o proxy quebra o WebSocket local do host de testes.
-   Rode o teste com `--no-pub` e o proxy desligado (o `dev.sh` já faz isso):
-   ```bash
-   ./scripts/dev.sh "test --no-pub"
-   ```
-3. **Developer Mode:** necessário para build/run de desktop com plugins (symlinks).
+- **Windows:** ative o **Modo de Desenvolvedor** (`start ms-settings:developers`) — o build de
+  desktop com plugins precisa de suporte a symlinks.
+- **`flutter run` funciona direto** no terminal do seu SO. Se você encontrar
+  `Unable to find git in your PATH` (alguns shells de automação não expõem o `git` ao Flutter),
+  use o helper `./scripts/dev.sh "<comando flutter>"` (ex.: `./scripts/dev.sh "run -d windows"`).
+- **Atrás de proxy NTLM?** Ele pode interceptar o WebSocket local do `flutter test`. Rode
+  `flutter test --no-pub` com o proxy desligado (o `dev.sh` já cuida disso).
 
 ## Padrões de código
 

@@ -56,9 +56,9 @@ flutter pub get
 flutter run -d windows   # ou: -d linux / -d macos
 ```
 
-> 💡 **No Git Bash (Windows)** o `flutter` direto falha (PATH em formato MSYS). Use o helper
-> `./scripts/dev.sh "run -d windows"` — ele resolve o PATH e desliga o proxy para o `test`. Veja
-> [`CONTRIBUTING.md`](CONTRIBUTING.md#ambiente).
+> 💡 No terminal do seu SO (`flutter run -d windows`) funciona direto. Em shells de automação
+> onde o PATH não expõe o `git` ao Flutter, use o helper `./scripts/dev.sh "<comando>"`.
+> Veja [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ### Build de release
 ```bash
