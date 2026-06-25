@@ -20,9 +20,9 @@ class WelcomeScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: ShadBadge(child: const Text('FluenJ')),
+                child: ShadBadge(child: Text('FluenJ')),
               ),
               const SizedBox(height: 16),
               Text('FluenJ — IDE para Java', style: theme.textTheme.h1),

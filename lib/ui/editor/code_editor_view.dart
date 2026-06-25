@@ -42,7 +42,7 @@ class CodeEditorView extends StatelessWidget {
           ],
         );
       },
-      chunkAnalyzer: DefaultCodeChunkAnalyzer(),
+      chunkAnalyzer: const DefaultCodeChunkAnalyzer(),
     );
   }
 

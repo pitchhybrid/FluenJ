@@ -15,7 +15,7 @@ class Sidebar extends ConsumerWidget {
     final theme = ShadTheme.of(context);
     final mode = ref.watch(explorerModeProvider);
 
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colorScheme.card,
         border: Border(
