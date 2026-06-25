@@ -49,7 +49,12 @@ class _EditorTabBar extends ConsumerWidget {
     final theme = ShadTheme.of(context);
     return Container(
       height: 34,
-      color: theme.colorScheme.muted,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.muted,
+        border: Border(
+          bottom: BorderSide(color: theme.colorScheme.border),
+        ),
+      ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: tabs.length,

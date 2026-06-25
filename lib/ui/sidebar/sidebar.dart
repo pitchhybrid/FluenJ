@@ -11,7 +11,12 @@ class Sidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
     return Container(
-      color: theme.colorScheme.background,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.card,
+        border: Border(
+          right: BorderSide(color: theme.colorScheme.border),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

@@ -11,7 +11,12 @@ class OutputPanel extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ShadTheme.of(context);
     return Container(
-      color: theme.colorScheme.background,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.card,
+        border: Border(
+          top: BorderSide(color: theme.colorScheme.border),
+        ),
+      ),
       padding: const EdgeInsets.all(12),
       alignment: Alignment.center,
       child: Text('Terminal / Output — em breve', style: theme.textTheme.muted),
