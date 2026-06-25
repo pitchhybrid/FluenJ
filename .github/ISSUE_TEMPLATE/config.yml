@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussão / Dúvida
+    url: https://github.com/pitchhybrid/FluenJ/discussions
+    about: Para perguntas e ideias, abra uma Discussion em vez de uma Issue.
+  - name: 📖 Documentação
+    url: https://github.com/pitchhybrid/FluenJ/tree/main/.context
+    about: Arquitetura, ADRs e roadmap estão no vault (.context/).
