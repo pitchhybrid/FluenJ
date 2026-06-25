@@ -1,6 +1,6 @@
 # ADR-0001 — Hux UI sobre um shell MaterialApp
 
-**Status:** Aceito · **Data:** 2026-06-24
+**Status:** ⚠️ Superado por [[adr-0004-shadcn-ui]] · **Data:** 2026-06-24
 
 ## Contexto
 O projeto `myide` é desktop-only (Windows/Linux/macOS). Era preciso escolher uma biblioteca de UI moderna e "não-Material" para a aparência.

@@ -12,6 +12,6 @@ void main() {
 
     // A tela inicial (welcome) deve oferecer o botão "Abrir pasta".
     expect(find.text('Abrir pasta'), findsOneWidget);
-    expect(find.text('myide — IDE para Java'), findsOneWidget);
+    expect(find.text('FluenJ — IDE para Java'), findsOneWidget);
   });
 }

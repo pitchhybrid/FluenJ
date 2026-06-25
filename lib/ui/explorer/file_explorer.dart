@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../core/models/file_node.dart';
 import '../../core/state/editor.dart';
@@ -11,17 +12,11 @@ class FileExplorer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ShadTheme.of(context);
     final tree = ref.watch(fileTreeProvider);
-    final theme = Theme.of(context);
 
     if (tree == null) {
-      return Center(
-        child: Text(
-          'Sem pasta',
-          style: theme.textTheme.bodyMedium
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
-        ),
-      );
+      return Center(child: Text('Sem pasta', style: theme.textTheme.muted));
     }
 
     final visible = linearizeVisible(tree.roots);
@@ -40,8 +35,9 @@ class _FileTreeTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    return InkWell(
+    final theme = ShadTheme.of(context);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         if (node.isDir) {
           ref.read(fileTreeProvider.notifier).toggle(node);
@@ -63,7 +59,7 @@ class _FileTreeTile extends ConsumerWidget {
                 padding: const EdgeInsets.only(right: 4),
                 child: Text(
                   node.isExpanded ? '▾' : '▸',
-                  style: theme.textTheme.bodySmall,
+                  style: theme.textTheme.small,
                 ),
               ),
             Padding(
@@ -74,7 +70,7 @@ class _FileTreeTile extends ConsumerWidget {
               child: Text(
                 node.name,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyMedium,
+                style: theme.textTheme.small,
               ),
             ),
           ],
@@ -84,7 +80,7 @@ class _FileTreeTile extends ConsumerWidget {
   }
 
   /// Glifo provisório por tipo de arquivo (placeholders; trocar por um set
-  /// de ícones — ex.: lucide_icons_flutter — numa fase futura).
+  /// de ícones — ex.: lucide — numa fase futura).
   String _glyph(FileNode node) {
     if (node.isDir) return '📁';
     final ext = node.name.contains('.')

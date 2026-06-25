@@ -5,7 +5,7 @@ Pacotes confirmados no pub.dev (versões e score verificados).
 ## UI / base
 | Pacote | Versão | Uso |
 |---|---|---|
-| `hux` | 1.2.1 ✅ (já) | componentes de UI (sobre MaterialApp shell) |
+| `shadcn_ui` | 0.52.3 ✅ | **UI** — `ShadApp` puro (zero Material); ver [[adr-0004-shadcn-ui]] |
 | `re_editor` | 0.9.0 | **editor de código** (alta perf, mantido — Reqable) |
 | `flutter_directory_tree` | 1.0.0 | **tree view** desktop (virtualizado, multi-root) — explorers |
 

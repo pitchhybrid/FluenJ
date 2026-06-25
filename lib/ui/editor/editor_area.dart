@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../core/state/editor.dart';
 import 'code_editor_view.dart';
@@ -10,15 +11,14 @@ class EditorArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ShadTheme.of(context);
     final editor = ref.watch(editorProvider);
-    final theme = Theme.of(context);
 
     if (editor.isEmpty) {
       return Center(
         child: Text(
           'Abra um arquivo no explorador',
-          style: theme.textTheme.bodyMedium
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+          style: theme.textTheme.muted,
         ),
       );
     }
@@ -26,17 +26,11 @@ class EditorArea extends ConsumerWidget {
     final active = editor.active;
     return Column(
       children: [
-        _EditorTabBar(
-          tabs: editor.tabs,
-          activeIndex: editor.activeIndex,
-        ),
+        _EditorTabBar(tabs: editor.tabs, activeIndex: editor.activeIndex),
         Expanded(
           child: active == null
               ? const SizedBox.shrink()
-              : CodeEditorView(
-                  key: ValueKey(active.path),
-                  tab: active,
-                ),
+              : CodeEditorView(key: ValueKey(active.path), tab: active),
         ),
       ],
     );
@@ -52,10 +46,10 @@ class _EditorTabBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
+    final theme = ShadTheme.of(context);
     return Container(
       height: 34,
-      color: theme.colorScheme.surfaceContainerLow,
+      color: theme.colorScheme.muted,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: tabs.length,
@@ -63,18 +57,19 @@ class _EditorTabBar extends ConsumerWidget {
           final tab = tabs[index];
           final isActive = index == activeIndex;
           return GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () => ref.read(editorProvider.notifier).setActive(index),
             child: Container(
               padding: const EdgeInsets.only(left: 12, right: 6),
               decoration: BoxDecoration(
                 color: isActive
-                    ? theme.colorScheme.surface
-                    : Colors.transparent,
+                    ? theme.colorScheme.background
+                    : const Color(0x00000000),
                 border: Border(
                   bottom: BorderSide(
                     color: isActive
                         ? theme.colorScheme.primary
-                        : Colors.transparent,
+                        : const Color(0x00000000),
                     width: 2,
                   ),
                 ),
@@ -83,15 +78,16 @@ class _EditorTabBar extends ConsumerWidget {
                 children: [
                   Text(
                     '${tab.isDirty ? '• ' : ''}${tab.name}',
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.small,
                   ),
                   const SizedBox(width: 8),
-                  InkWell(
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
                     onTap: () =>
                         ref.read(editorProvider.notifier).closeTab(index),
-                    borderRadius: BorderRadius.circular(4),
                     child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                       child: Text('×'),
                     ),
                   ),

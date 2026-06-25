@@ -2,7 +2,7 @@
 
 Este vault (gerido pelo **VaultForge**) é a fonte de documentação do projeto **myide**. Ele complementa o `CLAUDE.md` do repositório com notas mais detalhadas e conectadas por links.
 
-> Stack: Flutter 3.44 / Dart 3.12 / **Hux UI** (`hux`) · Desktop-only (Windows, Linux, macOS)
+> Stack: Flutter 3.44 / Dart 3.12 / **shadcn_ui** (`ShadApp` puro, zero Material) · Desktop-only (Windows, Linux, macOS)
 
 ## Índice
 

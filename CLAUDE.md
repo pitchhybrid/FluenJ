@@ -24,15 +24,18 @@ flutter build windows                        # build de release por plataforma
 
 ⚠️ Veja **"Rodar o Flutter neste ambiente"** abaixo — no shell atual, `flutter` direto falha; é preciso o wrapper de PATH.
 
-## UI: Hux UI sobre um shell MaterialApp
+## UI: shadcn_ui (ShadApp puro, zero Material)
 
-O Hux UI **não tem app root próprio** — ele é uma camada de componentes que vive sobre o Material. Por isso:
+A UI usa **`shadcn_ui`** com **`ShadApp` como root** (`lib/app.dart`) — **sem `MaterialApp`**. O `ShadApp` usa `WidgetsApp` por baixo (zero Material na UI). Decisão formal: **ADR-0004** (no vault `.context/decisoes/`), que suprime o antigo ADR-0001 (Hux sobre MaterialApp).
 
-- O `MaterialApp` em `lib/main.dart` é apenas **shell/infraestrutura** (`theme: HuxTheme.lightTheme`, `darkTheme: HuxTheme.darkTheme`). **Não remova o MaterialApp** — os componentes Hux dependem do `ThemeData` e do `ScaffoldMessenger` dele.
-- O tema vem do Hux (`HuxTheme`); os componentes visíveis devem ser do Hux (`HuxButton`, `HuxCard`, `HuxInput`, `HuxBadge`, `context.showHuxSnackbar(...)`, etc.).
-- Evite usar widgets/ícones de `package:flutter/material.dart` na UI visível (AppBar, FloatingActionButton, `Icons.*`) — prefira os equivalentes do Hux. Widgets de layout (`Scaffold`, `Column`, `Padding`, `Center`, `Text`) continuam sendo usados normalmente.
+Regras:
+- **Root:** `ShadApp(theme/darkTheme: ShadThemeData(...), home: const IdeShell())`. Sem `materialThemeBuilder`.
+- **Imports:** use `package:flutter/widgets.dart`, **não** `package:flutter/material.dart`. Evite `Scaffold`, `InkWell`, `Theme.of`, `AppBar`, `Icons.*`, `MaterialApp`, `Colors.*`.
+- **Tema:** `ShadTheme.of(context).colorScheme` (background/foreground/primary/border/card/muted/...), `.textTheme` (h1/h2/small/muted/...), `.brightness`.
+- **Componentes:** `ShadButton`, `ShadBadge`, `ShadCard`, `ShadInput`, etc. Notificações via **`ShadToaster`** (não `SnackBar`).
+- Substituições comuns: `Scaffold`→`Column`/`Container`; `InkWell`→`GestureDetector`; `Divider`→`Container(height:1, color: border)`; `Theme.of(...)`→`ShadTheme.of(...)`; `Colors.transparent`→`Color(0x00000000)`.
 
-Principais enums do Hux: `HuxButtonVariant` (primary/secondary/outline/ghost), `HuxBadgeVariant` (primary/secondary/success/outline/error/destructive), `HuxSnackbarVariant` (info/success/warning/error). Doc: https://docs.thehuxdesign.com/
+Doc: https://mariuti.com/flutter-shadcn-ui/
 
 ## Estrutura
 

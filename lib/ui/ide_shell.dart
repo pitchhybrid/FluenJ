@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
 
@@ -32,41 +32,37 @@ class IdeShell extends ConsumerWidget {
       return const WelcomeScreen();
     }
 
-    // O Scaffold é necessário para prover o ancestral Material exigido por
-    // widgets como InkWell (explorador, fechar aba).
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: MultiSplitView(
-              initialAreas: [Area(flex: 1, min: 180), Area(flex: 4)],
-              builder: (context, area) {
-                switch (area.index) {
-                  case 0:
-                    return const Sidebar();
-                  default:
-                    return MultiSplitView(
-                      axis: Axis.vertical,
-                      initialAreas: [
-                        Area(flex: 4, min: 120),
-                        Area(flex: 1, min: 60),
-                      ],
-                      builder: (context, area) {
-                        switch (area.index) {
-                          case 0:
-                            return const EditorArea();
-                          default:
-                            return const OutputPanel();
-                        }
-                      },
-                    );
-                }
-              },
-            ),
+    return Column(
+      children: [
+        Expanded(
+          child: MultiSplitView(
+            initialAreas: [Area(flex: 1, min: 180), Area(flex: 4)],
+            builder: (context, area) {
+              switch (area.index) {
+                case 0:
+                  return const Sidebar();
+                default:
+                  return MultiSplitView(
+                    axis: Axis.vertical,
+                    initialAreas: [
+                      Area(flex: 4, min: 120),
+                      Area(flex: 1, min: 60),
+                    ],
+                    builder: (context, area) {
+                      switch (area.index) {
+                        case 0:
+                          return const EditorArea();
+                        default:
+                          return const OutputPanel();
+                      }
+                    },
+                  );
+              }
+            },
           ),
-          const StatusBar(),
-        ],
-      ),
+        ),
+        const StatusBar(),
+      ],
     );
   }
 }

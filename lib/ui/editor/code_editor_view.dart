@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/java.dart';
 import 'package:re_highlight/languages/json.dart';
@@ -6,6 +6,7 @@ import 'package:re_highlight/languages/xml.dart';
 import 'package:re_highlight/re_highlight.dart' as hl;
 import 'package:re_highlight/styles/atom-one-dark.dart';
 import 'package:re_highlight/styles/atom-one-light.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../core/state/editor.dart';
 
@@ -17,12 +18,13 @@ class CodeEditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
     return CodeEditor(
       controller: tab.controller,
       readOnly: false,
       style: CodeEditorStyle(
         codeTheme: _highlightTheme(context),
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: theme.colorScheme.background,
       ),
       indicatorBuilder: (context, editingController, chunkController, notifier) {
         return Row(
@@ -57,7 +59,7 @@ class CodeEditorView extends StatelessWidget {
       _ => null,
     };
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = ShadTheme.of(context).brightness == Brightness.dark;
     return CodeHighlightTheme(
       languages: lang == null
           ? const {}
