@@ -36,6 +36,10 @@ class _FileTreeTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ShadTheme.of(context);
+    final iconColor = node.isDir
+        ? theme.colorScheme.primary
+        : theme.colorScheme.mutedForeground;
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
@@ -47,25 +51,29 @@ class _FileTreeTile extends ConsumerWidget {
       },
       child: Padding(
         padding: EdgeInsets.only(
-          left: 10 + node.depth * 14.0,
-          top: 3,
-          bottom: 3,
+          left: 8 + node.depth * 14.0,
+          top: 2,
+          bottom: 2,
           right: 8,
         ),
         child: Row(
           children: [
+            // Marcador de expandir/recolher (somente diretórios).
             if (node.isDir)
               Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: Text(
-                  node.isExpanded ? '▾' : '▸',
-                  style: theme.textTheme.small,
+                padding: const EdgeInsets.only(right: 2),
+                child: Icon(
+                  node.isExpanded
+                      ? LucideIcons.chevronDown
+                      : LucideIcons.chevronRight,
+                  size: 14,
+                  color: theme.colorScheme.mutedForeground,
                 ),
-              ),
-            Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: Text(_glyph(node), style: const TextStyle(fontSize: 14)),
-            ),
+              )
+            else
+              const SizedBox(width: 16),
+            Icon(_iconFor(node), size: 15, color: iconColor),
+            const SizedBox(width: 6),
             Expanded(
               child: Text(
                 node.name,
@@ -79,31 +87,31 @@ class _FileTreeTile extends ConsumerWidget {
     );
   }
 
-  /// Glifo provisório por tipo de arquivo (placeholders; trocar por um set
-  /// de ícones — ex.: lucide — numa fase futura).
-  String _glyph(FileNode node) {
-    if (node.isDir) return '📁';
+  /// Ícone lucide conforme o tipo do arquivo.
+  IconData _iconFor(FileNode node) {
+    if (node.isDir) {
+      return node.isExpanded ? LucideIcons.folderOpen : LucideIcons.folder;
+    }
     final ext = node.name.contains('.')
         ? node.name.split('.').last.toLowerCase()
         : '';
     switch (ext) {
       case 'java':
-        return '☕';
+        return LucideIcons.fileCode2;
+      case 'json':
+        return LucideIcons.braces;
       case 'xml':
       case 'xhtml':
       case 'xsd':
-        return '🌐';
+        return LucideIcons.fileCode;
+      case 'md':
+        return LucideIcons.fileText;
       case 'gradle':
       case 'kts':
-        return '🐘';
       case 'properties':
-        return '⚙';
-      case 'json':
-        return '🅙';
-      case 'md':
-        return '📝';
+        return LucideIcons.fileText;
       default:
-        return '📄';
+        return LucideIcons.file;
     }
   }
 }

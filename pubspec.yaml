@@ -36,6 +36,7 @@ dependencies:
   # UI library — componentes Hux (HuxButton, HuxCard, HuxInput, ...).
   # https://docs.thehuxdesign.com/
   flutter_riverpod: ^3.3.2
+  lucide_icons_flutter: ^3.1.14+2
   multi_split_view: ^3.6.2
   path: ^1.9.1
   re_editor: ^0.9.0

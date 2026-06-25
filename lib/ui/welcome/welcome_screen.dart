@@ -33,6 +33,7 @@ class WelcomeScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
               ShadButton(
+                leading: const Icon(LucideIcons.folderOpen, size: 16),
                 onPressed: () =>
                     ref.read(workspaceProvider.notifier).openFolderPicker(),
                 child: const Text('Abrir pasta'),

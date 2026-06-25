@@ -90,10 +90,13 @@ class _EditorTabBar extends ConsumerWidget {
                     behavior: HitTestBehavior.opaque,
                     onTap: () =>
                         ref.read(editorProvider.notifier).closeTab(index),
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      child: Text('×'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Icon(
+                        LucideIcons.x,
+                        size: 14,
+                        color: theme.colorScheme.mutedForeground,
+                      ),
                     ),
                   ),
                 ],

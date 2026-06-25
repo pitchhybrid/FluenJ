@@ -37,18 +37,20 @@ class StatusBar extends ConsumerWidget {
           else
             const Spacer(),
           _PanelToggle(
-            label: 'Explorer',
+            icon: layout.showSidebar
+                ? LucideIcons.panelLeftOpen
+                : LucideIcons.panelLeftClose,
             active: layout.showSidebar,
             onTap: () =>
                 ref.read(layoutProvider.notifier).toggleSidebar(),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 12),
           _PanelToggle(
-            label: 'Terminal',
+            icon: LucideIcons.terminal,
             active: layout.showOutput,
             onTap: () => ref.read(layoutProvider.notifier).toggleOutput(),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 12),
           Text('Java 1.8–24', style: theme.textTheme.small),
         ],
       ),
@@ -58,12 +60,12 @@ class StatusBar extends ConsumerWidget {
 
 class _PanelToggle extends StatelessWidget {
   const _PanelToggle({
-    required this.label,
+    required this.icon,
     required this.active,
     required this.onTap,
   });
 
-  final String label;
+  final IconData icon;
   final bool active;
   final VoidCallback onTap;
 
@@ -73,14 +75,14 @@ class _PanelToggle extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Text(
-        label,
-        style: theme.textTheme.small.copyWith(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: Icon(
+          icon,
+          size: 15,
           color: active
               ? theme.colorScheme.primary
               : theme.colorScheme.mutedForeground,
-          decoration: TextDecoration.none,
-          fontWeight: active ? FontWeight.bold : FontWeight.normal,
         ),
       ),
     );
