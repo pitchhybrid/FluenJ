@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
@@ -11,8 +12,18 @@ import 'sidebar/sidebar.dart';
 import 'widgets/status_bar.dart';
 import 'welcome/welcome_screen.dart';
 
+class _ToggleSidebarIntent extends Intent {
+  const _ToggleSidebarIntent();
+}
+
+class _ToggleOutputIntent extends Intent {
+  const _ToggleOutputIntent();
+}
+
 /// Layout principal da IDE: sidebar | (editor + output) com status bar embaixo.
 /// Os painéis (sidebar/output) podem ser ocultados via [[layoutProvider]].
+///
+/// Atalhos: `Ctrl/Cmd + B` (explorer), `Ctrl/Cmd + \`` (terminal).
 class IdeShell extends ConsumerWidget {
   const IdeShell({super.key});
 
@@ -63,11 +74,42 @@ class IdeShell extends ConsumerWidget {
       body = vertical;
     }
 
-    return Column(
-      children: [
-        Expanded(child: body),
-        const StatusBar(),
-      ],
+    return Shortcuts(
+      shortcuts: {
+        // Ctrl/Cmd + B -> toggle explorer
+        LogicalKeySet(LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.keyB):
+            _ToggleSidebarIntent(),
+        LogicalKeySet(LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.keyB):
+            _ToggleSidebarIntent(),
+        // Ctrl/Cmd + ` -> toggle terminal
+        LogicalKeySet(
+                LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.backquote):
+            _ToggleOutputIntent(),
+        LogicalKeySet(
+                LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.backquote):
+            _ToggleOutputIntent(),
+      },
+      child: Actions(
+        actions: {
+          _ToggleSidebarIntent: CallbackAction<_ToggleSidebarIntent>(
+            onInvoke: (_) =>
+                ref.read(layoutProvider.notifier).toggleSidebar(),
+          ),
+          _ToggleOutputIntent: CallbackAction<_ToggleOutputIntent>(
+            onInvoke: (_) =>
+                ref.read(layoutProvider.notifier).toggleOutput(),
+          ),
+        },
+        child: Focus(
+          autofocus: true,
+          child: Column(
+            children: [
+              Expanded(child: body),
+              const StatusBar(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
