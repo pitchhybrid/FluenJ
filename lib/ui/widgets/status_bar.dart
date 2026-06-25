@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../core/state/editor.dart';
+import '../../core/state/layout.dart';
 import '../../core/state/workspace.dart';
 
-/// Barra de status inferior (nome do projeto, arquivo ativo, compatibilidade).
+/// Barra de status inferior (nome do projeto, arquivo ativo, compatibilidade)
+/// + toggles de visibilidade dos painéis (explorer / terminal).
 class StatusBar extends ConsumerWidget {
   const StatusBar({super.key});
 
@@ -14,6 +16,7 @@ class StatusBar extends ConsumerWidget {
     final theme = ShadTheme.of(context);
     final ws = ref.watch(workspaceProvider);
     final editor = ref.watch(editorProvider);
+    final layout = ref.watch(layoutProvider);
 
     return Container(
       height: 26,
@@ -21,10 +24,7 @@ class StatusBar extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          Text(
-            ws.isOpen ? ws.name : 'FluenJ',
-            style: theme.textTheme.small,
-          ),
+          Text(ws.isOpen ? ws.name : 'FluenJ', style: theme.textTheme.small),
           const SizedBox(width: 16),
           if (editor.active != null)
             Expanded(
@@ -36,8 +36,52 @@ class StatusBar extends ConsumerWidget {
             )
           else
             const Spacer(),
+          _PanelToggle(
+            label: 'Explorer',
+            active: layout.showSidebar,
+            onTap: () =>
+                ref.read(layoutProvider.notifier).toggleSidebar(),
+          ),
+          const SizedBox(width: 14),
+          _PanelToggle(
+            label: 'Terminal',
+            active: layout.showOutput,
+            onTap: () => ref.read(layoutProvider.notifier).toggleOutput(),
+          ),
+          const SizedBox(width: 14),
           Text('Java 1.8–24', style: theme.textTheme.small),
         ],
+      ),
+    );
+  }
+}
+
+class _PanelToggle extends StatelessWidget {
+  const _PanelToggle({
+    required this.label,
+    required this.active,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool active;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Text(
+        label,
+        style: theme.textTheme.small.copyWith(
+          color: active
+              ? theme.colorScheme.primary
+              : theme.colorScheme.mutedForeground,
+          decoration: TextDecoration.none,
+          fontWeight: active ? FontWeight.bold : FontWeight.normal,
+        ),
       ),
     );
   }
