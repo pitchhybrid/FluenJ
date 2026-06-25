@@ -2,37 +2,51 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-/// Um nó da árvore de arquivos do explorador.
-///
-/// A árvore é carregada de forma preguiçosa: os filhos só são listados
-/// quando o diretório é expandido pelo usuário.
+/// Tipo lógico de um nó (usado pelo package explorer).
+enum NodeKind {
+  file,
+  folder,
+  package,
+  sourceFolder,
+  classFile,
+  library,
+  jre,
+  webApp,
+  webResource,
+}
+
+/// Um nó da árvore de arquivos (file explorer) ou lógica (package explorer).
 class FileNode {
   FileNode({
     required this.path,
     required this.name,
     required this.isDir,
     this.depth = 0,
+    this.kind,
     List<FileNode>? children,
     this.isExpanded = false,
     this.isLoading = false,
   }) : children = children ?? [];
 
-  /// Caminho absoluto no sistema de arquivos.
+  /// Caminho absoluto (pode ser vazio em nós lógicos como "JRE").
   final String path;
 
-  /// Nome de exibição (último segmento do caminho).
+  /// Nome de exibição.
   final String name;
 
-  /// É diretório?
+  /// É diretório/pacote (tem filhos)?
   final bool isDir;
 
-  /// Nível de profundidade na árvore (para indentação).
+  /// Nível de profundidade (para indentação).
   final int depth;
 
-  /// Filhos (somente para diretórios; populado ao expandir).
+  /// Tipo lógico (package explorer); `null` = derivar (file explorer).
+  final NodeKind? kind;
+
+  /// Filhos (populados ao expandir).
   final List<FileNode> children;
 
-  /// Diretório atualmente expandido no explorador.
+  /// Atualmente expandido no explorador.
   bool isExpanded;
 
   /// Em processo de carregamento dos filhos.

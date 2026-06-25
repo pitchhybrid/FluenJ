@@ -43,6 +43,7 @@ dependencies:
   re_highlight: ^0.0.3
   shadcn_ui: ^0.52.3
   window_manager: ^0.5.1
+  xml: ^7.0.1
 
 dev_dependencies:
   flutter_test:

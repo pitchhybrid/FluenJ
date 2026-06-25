@@ -5,6 +5,7 @@ import 'package:multi_split_view/multi_split_view.dart';
 
 import '../core/state/file_tree.dart';
 import '../core/state/layout.dart';
+import '../core/state/package_tree.dart';
 import '../core/state/workspace.dart';
 import 'editor/editor_area.dart';
 import 'output/output_panel.dart';
@@ -32,13 +33,16 @@ class IdeShell extends ConsumerWidget {
     final ws = ref.watch(workspaceProvider);
     final layout = ref.watch(layoutProvider);
 
-    // Sincroniza a árvore de arquivos quando o workspace abre/fecha.
+    // Sincroniza as árvores (file + package) quando o workspace abre/fecha.
     ref.listen<WorkspaceState>(workspaceProvider, (previous, next) {
       final tree = ref.read(fileTreeProvider.notifier);
+      final pkg = ref.read(packageTreeProvider.notifier);
       if (next.isOpen && next.rootPath != previous?.rootPath) {
         tree.setRoot(next.rootPath!);
+        pkg.setRoot(next.rootPath!);
       } else if (!next.isOpen) {
         tree.clear();
+        pkg.clear();
       }
     });
 
