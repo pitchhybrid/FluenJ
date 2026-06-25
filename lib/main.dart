@@ -20,9 +20,14 @@ Future<void> main() async {
     ),
     () async {
       await windowManager.show();
-      await windowManager.maximize();
+      await windowManager.focus();
     },
   );
+
+  // Maximiza DEPOIS da janela estar pronta. Chamar dentro do callback acima
+  // causava race: a janela ia para tela cheia mas a view Flutter ficava no
+  // tamanho inicial (1280x800) no canto — o "eco".
+  await windowManager.maximize();
 
   runApp(const ProviderScope(child: MyApp()));
 }
