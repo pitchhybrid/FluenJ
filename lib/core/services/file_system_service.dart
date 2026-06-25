@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,9 +54,16 @@ class FileSystemService {
     return hiddenEntries.contains(name);
   }
 
+  /// Lê um arquivo de texto. Tenta UTF-8 primeiro; se houver bytes inválidos
+  /// (arquivos Java em windows-1252/latin1, comum no Windows), cai para
+  /// latin1, que decodifica qualquer byte sem falhar.
   Future<String> readText(String filePath) async {
-    final file = File(filePath);
-    return file.readAsString();
+    final bytes = await File(filePath).readAsBytes();
+    try {
+      return utf8.decode(bytes);
+    } catch (_) {
+      return latin1.decode(bytes);
+    }
   }
 
   Future<void> writeText(String filePath, String content) async {
