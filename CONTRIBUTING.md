@@ -36,8 +36,13 @@ flutter run -d windows   # ou linux / macos
 
 ## Padrões de código
 
-- **Lints:** usamos o conjunto `flutter_lints`. Rode `flutter analyze` antes de abrir o PR —
-  deve estar **sem issues**.
+- **Análise rigorosa:** `flutter_lints` + perfil estrito (`strict-casts`, `strict-inference`,
+  `strict-raw-types`, lints críticos como erro). Rode `flutter analyze --fatal-infos` antes do
+  PR — deve estar **sem issues** (o `--fatal-infos` falha até em `info`, igual ao CI).
+- **CI gate:** todo push/PR roda `flutter analyze --fatal-infos` + `flutter test` no GitHub
+  Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)). PR que quebra o
+  analyze/teste fica vermelho e não entra.
+- **Auto-correção:** ao adicionar/mudar regras, `dart fix --apply` resolve boa parte.
 - **Estilo de UI:** o projeto usa **`shadcn_ui`** (`ShadApp` puro, **sem `MaterialApp`**).
   - Importe `package:flutter/widgets.dart` (não `material.dart`).
   - Use `ShadTheme.of(context)` para cores/texto (nunca `Theme.of`).
