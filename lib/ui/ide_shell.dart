@@ -10,6 +10,7 @@ import '../core/state/workspace.dart';
 import 'editor/editor_area.dart';
 import 'output/output_panel.dart';
 import 'sidebar/sidebar.dart';
+import 'widgets/menu_bar.dart';
 import 'widgets/status_bar.dart';
 import 'widgets/title_bar.dart';
 import 'welcome/welcome_screen.dart';
@@ -22,9 +23,9 @@ class _ToggleOutputIntent extends Intent {
   const _ToggleOutputIntent();
 }
 
-/// Layout principal da IDE: title bar (janela frameless) + sidebar | (editor +
-/// output) com status bar embaixo. Os painéis podem ser ocultados via
-/// [[layoutProvider]]. Atalhos: Ctrl/Cmd+B (explorer), Ctrl/Cmd+` (terminal).
+/// Layout principal da IDE: title bar + (menu bar) + sidebar | (editor +
+/// output) com status bar. Painéis togglables (layoutProvider).
+/// Atalhos: Ctrl/Cmd+B (explorer), Ctrl/Cmd+` (terminal), Alt (menu bar).
 class IdeShell extends ConsumerWidget {
   const IdeShell({super.key});
 
@@ -50,7 +51,6 @@ class IdeShell extends ConsumerWidget {
     if (!ws.isOpen) {
       content = const WelcomeScreen();
     } else {
-      // Painel vertical: editor (+ terminal quando visível).
       final Widget vertical;
       if (layout.showOutput) {
         vertical = MultiSplitView(
@@ -63,7 +63,6 @@ class IdeShell extends ConsumerWidget {
         vertical = const EditorArea();
       }
 
-      // Layout horizontal: sidebar (+ vertical) quando visível.
       final Widget body;
       if (layout.showSidebar) {
         body = MultiSplitView(
@@ -114,11 +113,56 @@ class IdeShell extends ConsumerWidget {
       );
     }
 
-    return Column(
-      children: [
-        const TitleBar(),
-        Expanded(child: content),
-      ],
+    return _GlobalShortcuts(
+      child: Column(
+        children: [
+          const TitleBar(),
+          if (layout.showMenuBar) const IdeMenuBar(),
+          Expanded(child: content),
+        ],
+      ),
     );
   }
+}
+
+/// Captura Alt-sozinho globalmente (independente do foco) para toggle da barra
+/// de menus — estilo Zed. Alt combinado com outra tecla é ignorado.
+class _GlobalShortcuts extends ConsumerStatefulWidget {
+  const _GlobalShortcuts({required this.child});
+
+  final Widget child;
+
+  @override
+  ConsumerState<_GlobalShortcuts> createState() => _GlobalShortcutsState();
+}
+
+class _GlobalShortcutsState extends ConsumerState<_GlobalShortcuts> {
+  late final bool Function(KeyEvent) _handler;
+
+  @override
+  void initState() {
+    super.initState();
+    _handler = (event) {
+      if (event is! KeyDownEvent) return false;
+      final isAlt = event.logicalKey == LogicalKeyboardKey.altLeft ||
+          event.logicalKey == LogicalKeyboardKey.altRight;
+      if (!isAlt) return false;
+      final pressed = HardwareKeyboard.instance.logicalKeysPressed;
+      if (pressed.length == 1) {
+        ref.read(layoutProvider.notifier).toggleMenuBar();
+        return true;
+      }
+      return false;
+    };
+    HardwareKeyboard.instance.addHandler(_handler);
+  }
+
+  @override
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_handler);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
