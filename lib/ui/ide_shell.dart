@@ -10,6 +10,7 @@ import 'editor/editor_area.dart';
 import 'output/output_panel.dart';
 import 'sidebar/sidebar.dart';
 import 'widgets/status_bar.dart';
+import 'widgets/title_bar.dart';
 import 'welcome/welcome_screen.dart';
 
 class _ToggleSidebarIntent extends Intent {
@@ -20,10 +21,9 @@ class _ToggleOutputIntent extends Intent {
   const _ToggleOutputIntent();
 }
 
-/// Layout principal da IDE: sidebar | (editor + output) com status bar embaixo.
-/// Os painéis (sidebar/output) podem ser ocultados via [[layoutProvider]].
-///
-/// Atalhos: `Ctrl/Cmd + B` (explorer), `Ctrl/Cmd + \`` (terminal).
+/// Layout principal da IDE: title bar (janela frameless) + sidebar | (editor +
+/// output) com status bar embaixo. Os painéis podem ser ocultados via
+/// [[layoutProvider]]. Atalhos: Ctrl/Cmd+B (explorer), Ctrl/Cmd+` (terminal).
 class IdeShell extends ConsumerWidget {
   const IdeShell({super.key});
 
@@ -42,74 +42,79 @@ class IdeShell extends ConsumerWidget {
       }
     });
 
+    final Widget content;
     if (!ws.isOpen) {
-      return const WelcomeScreen();
-    }
-
-    // Painel vertical: editor (+ terminal quando visível).
-    final Widget vertical;
-    if (layout.showOutput) {
-      vertical = MultiSplitView(
-        axis: Axis.vertical,
-        initialAreas: [Area(flex: 1, min: 120), Area(size: 160, min: 60)],
-        builder: (context, area) =>
-            area.index == 0 ? const EditorArea() : const OutputPanel(),
-      );
+      content = const WelcomeScreen();
     } else {
-      vertical = const EditorArea();
-    }
+      // Painel vertical: editor (+ terminal quando visível).
+      final Widget vertical;
+      if (layout.showOutput) {
+        vertical = MultiSplitView(
+          axis: Axis.vertical,
+          initialAreas: [Area(flex: 1, min: 120), Area(size: 160, min: 60)],
+          builder: (context, area) =>
+              area.index == 0 ? const EditorArea() : const OutputPanel(),
+        );
+      } else {
+        vertical = const EditorArea();
+      }
 
-    // Layout horizontal: sidebar (+ vertical) quando visível.
-    final Widget body;
-    if (layout.showSidebar) {
-      body = MultiSplitView(
-        initialAreas: [
-          Area(size: 260, min: 200, max: 600),
-          Area(flex: 1, min: 300),
-        ],
-        builder: (context, area) =>
-            area.index == 0 ? const Sidebar() : vertical,
-      );
-    } else {
-      body = vertical;
-    }
+      // Layout horizontal: sidebar (+ vertical) quando visível.
+      final Widget body;
+      if (layout.showSidebar) {
+        body = MultiSplitView(
+          initialAreas: [
+            Area(size: 260, min: 200, max: 600),
+            Area(flex: 1, min: 300),
+          ],
+          builder: (context, area) =>
+              area.index == 0 ? const Sidebar() : vertical,
+        );
+      } else {
+        body = vertical;
+      }
 
-    return Shortcuts(
-      shortcuts: {
-        // Ctrl/Cmd + B -> toggle explorer
-        LogicalKeySet(LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.keyB):
-            _ToggleSidebarIntent(),
-        LogicalKeySet(LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.keyB):
-            _ToggleSidebarIntent(),
-        // Ctrl/Cmd + ` -> toggle terminal
-        LogicalKeySet(
-                LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.backquote):
-            _ToggleOutputIntent(),
-        LogicalKeySet(
-                LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.backquote):
-            _ToggleOutputIntent(),
-      },
-      child: Actions(
-        actions: {
-          _ToggleSidebarIntent: CallbackAction<_ToggleSidebarIntent>(
-            onInvoke: (_) =>
-                ref.read(layoutProvider.notifier).toggleSidebar(),
-          ),
-          _ToggleOutputIntent: CallbackAction<_ToggleOutputIntent>(
-            onInvoke: (_) =>
-                ref.read(layoutProvider.notifier).toggleOutput(),
-          ),
+      content = Shortcuts(
+        shortcuts: {
+          LogicalKeySet(LogicalKeyboardKey.controlLeft, LogicalKeyboardKey.keyB):
+              const _ToggleSidebarIntent(),
+          LogicalKeySet(LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.keyB):
+              const _ToggleSidebarIntent(),
+          LogicalKeySet(LogicalKeyboardKey.controlLeft,
+                  LogicalKeyboardKey.backquote):
+              const _ToggleOutputIntent(),
+          LogicalKeySet(LogicalKeyboardKey.metaLeft, LogicalKeyboardKey.backquote):
+              const _ToggleOutputIntent(),
         },
-        child: Focus(
-          autofocus: true,
-          child: Column(
-            children: [
-              Expanded(child: body),
-              const StatusBar(),
-            ],
+        child: Actions(
+          actions: {
+            _ToggleSidebarIntent: CallbackAction<_ToggleSidebarIntent>(
+              onInvoke: (_) =>
+                  ref.read(layoutProvider.notifier).toggleSidebar(),
+            ),
+            _ToggleOutputIntent: CallbackAction<_ToggleOutputIntent>(
+              onInvoke: (_) =>
+                  ref.read(layoutProvider.notifier).toggleOutput(),
+            ),
+          },
+          child: Focus(
+            autofocus: true,
+            child: Column(
+              children: [
+                Expanded(child: body),
+                const StatusBar(),
+              ],
+            ),
           ),
         ),
-      ),
+      );
+    }
+
+    return Column(
+      children: [
+        const TitleBar(),
+        Expanded(child: content),
+      ],
     );
   }
 }
