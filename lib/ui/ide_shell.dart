@@ -36,7 +36,7 @@ class IdeShell extends ConsumerWidget {
       children: [
         Expanded(
           child: MultiSplitView(
-            initialAreas: [Area(flex: 1, min: 180), Area(flex: 4)],
+            initialAreas: [Area(size: 260, min: 200, max: 600), Area(flex: 1, min: 300)],
             builder: (context, area) {
               switch (area.index) {
                 case 0:

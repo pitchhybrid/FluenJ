@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/java.dart';
 import 'package:re_highlight/languages/json.dart';
+import 'package:re_highlight/languages/plaintext.dart';
 import 'package:re_highlight/languages/xml.dart';
 import 'package:re_highlight/re_highlight.dart' as hl;
 import 'package:re_highlight/styles/atom-one-dark.dart';
@@ -52,20 +53,20 @@ class CodeEditorView extends StatelessWidget {
         ? tab.name.split('.').last.toLowerCase()
         : '';
 
-    final hl.Mode? lang = switch (ext) {
+    // Sempre mapeia para uma linguagem: o engine do re_editor quebra
+    // (.reduce numa lista vazia) se o mapa de linguagens estiver vazio.
+    final hl.Mode lang = switch (ext) {
       'java' => langJava,
       'json' => langJson,
       'xml' || 'xhtml' || 'xsd' => langXml,
-      _ => null,
+      _ => langPlaintext,
     };
 
     final isDark = ShadTheme.of(context).brightness == Brightness.dark;
     return CodeHighlightTheme(
-      languages: lang == null
-          ? const {}
-          : {
-              ext: CodeHighlightThemeMode(mode: lang),
-            },
+      languages: {
+        ext: CodeHighlightThemeMode(mode: lang),
+      },
       theme: isDark ? atomOneDarkTheme : atomOneLightTheme,
     );
   }
