@@ -1,11 +1,11 @@
 # Configuração do analyzer (estática de Dart/Flutter) — perfil RIGOROSO.
+# Base: very_good_analysis (preset do VGV) + strict de tipos. Gate de CI.
 # Rode `flutter analyze` antes de considerar trabalho concluído.
 
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
-  # Rigor de tipos: força casts explícitos, inferência e tipos crus (raw) a
-  # serem declarados — pega muitos bugs em tempo de compilação.
+  # Rigor de tipos: força casts explícitos, inferência e tipos crus (raw).
   language:
     strict-casts: true
     strict-inference: true
@@ -14,49 +14,20 @@ analyzer:
   exclude:
     - 'build/**'
     - '.dart_tool/**'
+    - 'lib/**.g.dart' # código gerado pelo build_runner (riverpod_generator)
 
-  # Promove lints críticos a erro (falham o analyze).
   errors:
-    avoid_print: error
-    avoid_dynamic_calls: error
-    always_declare_return_types: error
-    unawaited_futures: error
-    missing_required_param: error
-    missing_return: error
     todo: ignore # TODOs aceitos como info
+    # Afrouxamento pragmático de regras opinativas/barulhentas do VGA:
+    public_member_api_docs: ignore # doc completa em todo membro público é escopo separado
+    lines_longer_than_80_chars: ignore # 80 chars é apertado p/ paths/URLs de IDE desktop
+    cascade_invocations: ignore # estilo
+    flutter_style_todos: ignore # formato de TODO opinativo
+    sort_pub_dependencies: ignore # estilo; mistura sdk/flutter atrapalha a ordem
+    use_setters_to_change_properties: ignore # notifiers Riverpod usam métodos de ação; setter é opinativo
+    prefer_int_literals: ignore # estilo; editor tem muitas medidas double explícitas
+    use_late_for_private_fields_and_variables: ignore # estilo; campos inicializados inline são válidos sem late
 
-linter:
-  rules:
-    # Boas práticas / prevenção de bugs
-    avoid_print: true
-    avoid_dynamic_calls: true
-    always_declare_return_types: true
-    unawaited_futures: true
-    avoid_slow_async_io: true
-    cancel_subscriptions: true
-    close_sinks: true
-    prefer_typing_uninitialized_variables: true
-
-    # const e final (performance e clareza)
-    prefer_const_constructors: true
-    prefer_const_constructors_in_immutables: true
-    prefer_const_declarations: true
-    prefer_const_literals_to_create_immutables: true
-    prefer_final_fields: true
-    prefer_final_locals: true
-    prefer_final_in_for_each: true
-    unnecessary_const: true
-    unnecessary_new: true
-
-    # Estilo / clareza
-    require_trailing_commas: true
-    use_super_parameters: true
-    use_key_in_widget_constructors: true
-    prefer_single_quotes: true
-
-    # Flutter específico
-    avoid_unnecessary_containers: true
-    sized_box_for_whitespace: true
-    use_colored_box: true
-    use_decorated_box: true
-    use_full_hex_values_for_flutter_colors: true
+# very_good_analysis é um preset fechado: NÃO listar regras em linter.rules
+# (sobrescrever anula o preset). Para afrouxar regras barulhentas, use
+# analyzer.errors (ex.: public_member_api_docs: ignore) com critério.

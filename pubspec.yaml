@@ -33,14 +33,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # UI library — componentes Hux (HuxButton, HuxCard, HuxInput, ...).
-  # https://docs.thehuxdesign.com/
   flutter_riverpod: ^3.3.2
   lucide_icons_flutter: ^3.1.14+2
   multi_split_view: ^3.6.2
   path: ^1.9.1
-  re_editor: ^0.9.0
   re_highlight: ^0.0.3
+  # UI library — shadcn_ui (ShadApp, ShadButton, ShadMenubar, ShadCard, ShadInput, ...).
+  # https://mariuti.com/flutter-shadcn-ui/
   shadcn_ui: ^0.52.3
   window_manager: ^0.5.1
   xml: ^7.0.1
@@ -49,12 +48,17 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^6.0.0
+  integration_test:
+    sdk: flutter
+
+  # Lints: very_good_analysis (preset rigoroso do VGV) — substitui flutter_lints.
+  very_good_analysis: ^10.3.0
+
+  # Testes: mocktail (mocks sem codegen) + alchemist (golden tests).
+  # NOTA: riverpod_generator/annotation AUSENTES — incompatíveis com
+  # flutter_riverpod 3.3.2 (o codegen cobre só até riverpod 3.0.3). Ver ADR-0006.
+  mocktail: ^1.0.5
+  alchemist: ^0.14.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
