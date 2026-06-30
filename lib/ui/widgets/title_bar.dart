@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:window_manager/window_manager.dart';
@@ -17,9 +19,11 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
   void initState() {
     super.initState();
     windowManager.addListener(this);
-    windowManager.isMaximized().then((v) {
-      if (mounted) setState(() => _maximized = v);
-    });
+    unawaited(
+      windowManager.isMaximized().then((v) {
+        if (mounted) setState(() => _maximized = v);
+      }),
+    );
   }
 
   @override
@@ -71,7 +75,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
           ),
           _WindowButton(
             icon: LucideIcons.minus,
-            onTap: () => windowManager.minimize(),
+            onTap: windowManager.minimize,
           ),
           _WindowButton(
             icon: _maximized ? LucideIcons.copy : LucideIcons.square,
@@ -82,7 +86,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
           _WindowButton(
             icon: LucideIcons.x,
             isClose: true,
-            onTap: () => windowManager.close(),
+            onTap: windowManager.close,
           ),
         ],
       ),

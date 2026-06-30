@@ -1,10 +1,9 @@
+import 'package:fluenj/core/models/file_node.dart';
+import 'package:fluenj/core/state/editor.dart';
+import 'package:fluenj/core/state/file_tree.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/models/file_node.dart';
-import '../../core/state/editor.dart';
-import '../../core/state/file_tree.dart';
 
 /// Explorador de arquivos (árvore com carregamento preguiçoso).
 class FileExplorer extends ConsumerWidget {
@@ -42,11 +41,11 @@ class _FileTreeTile extends ConsumerWidget {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
+      onTap: () async {
         if (node.isDir) {
           ref.read(fileTreeProvider.notifier).toggle(node);
         } else {
-          ref.read(editorProvider.notifier).openFile(node.path);
+          await ref.read(editorProvider.notifier).openFile(node.path);
         }
       },
       child: Padding(

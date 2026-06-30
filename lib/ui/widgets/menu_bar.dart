@@ -1,10 +1,9 @@
+import 'package:fluenj/core/state/editor.dart';
+import 'package:fluenj/core/state/layout.dart';
+import 'package:fluenj/core/state/workspace.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/state/editor.dart';
-import '../../core/state/layout.dart';
-import '../../core/state/workspace.dart';
 
 /// Barra de menus (File / View / Help) — toggable via Alt (ver IdeShell).
 class IdeMenuBar extends ConsumerWidget {

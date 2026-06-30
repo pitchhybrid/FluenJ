@@ -1,13 +1,12 @@
-// Teste de widget do app myide (shell da IDE em Hux UI).
+// Teste de widget do FluenJ (shell da IDE em shadcn_ui).
 
+import 'package:fluenj/app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fluenj/app.dart';
-
 void main() {
   testWidgets('Mostra a tela de boas-vindas sem pasta aberta',
-      (WidgetTester tester) async {
+      (tester) async {
     await tester.pumpWidget(const ProviderScope(child: MyApp()));
 
     // A tela inicial (welcome) deve oferecer o botão "Abrir pasta".

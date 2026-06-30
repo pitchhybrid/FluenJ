@@ -1,8 +1,7 @@
+import 'package:fluenj/core/state/workspace.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/state/workspace.dart';
 
 /// Tela inicial quando nenhuma pasta de projeto está aberta.
 class WelcomeScreen extends ConsumerWidget {

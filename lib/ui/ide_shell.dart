@@ -1,19 +1,18 @@
+import 'package:fluenj/core/state/file_tree.dart';
+import 'package:fluenj/core/state/layout.dart';
+import 'package:fluenj/core/state/package_tree.dart';
+import 'package:fluenj/core/state/workspace.dart';
+import 'package:fluenj/ui/editor/editor_area.dart';
+import 'package:fluenj/ui/output/output_panel.dart';
+import 'package:fluenj/ui/sidebar/sidebar.dart';
+import 'package:fluenj/ui/welcome/welcome_screen.dart';
+import 'package:fluenj/ui/widgets/menu_bar.dart';
+import 'package:fluenj/ui/widgets/status_bar.dart';
+import 'package:fluenj/ui/widgets/title_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_split_view/multi_split_view.dart';
-
-import '../core/state/file_tree.dart';
-import '../core/state/layout.dart';
-import '../core/state/package_tree.dart';
-import '../core/state/workspace.dart';
-import 'editor/editor_area.dart';
-import 'output/output_panel.dart';
-import 'sidebar/sidebar.dart';
-import 'widgets/menu_bar.dart';
-import 'widgets/status_bar.dart';
-import 'widgets/title_bar.dart';
-import 'welcome/welcome_screen.dart';
 
 class _ToggleSidebarIntent extends Intent {
   const _ToggleSidebarIntent();
@@ -35,12 +34,12 @@ class IdeShell extends ConsumerWidget {
     final layout = ref.watch(layoutProvider);
 
     // Sincroniza as árvores (file + package) quando o workspace abre/fecha.
-    ref.listen<WorkspaceState>(workspaceProvider, (previous, next) {
+    ref.listen<WorkspaceState>(workspaceProvider, (previous, next) async {
       final tree = ref.read(fileTreeProvider.notifier);
       final pkg = ref.read(packageTreeProvider.notifier);
       if (next.isOpen && next.rootPath != previous?.rootPath) {
         tree.setRoot(next.rootPath!);
-        pkg.setRoot(next.rootPath!);
+        await pkg.setRoot(next.rootPath!);
       } else if (!next.isOpen) {
         tree.clear();
         pkg.clear();

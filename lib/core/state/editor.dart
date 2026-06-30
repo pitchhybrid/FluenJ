@@ -1,8 +1,7 @@
+import 'package:fluenj/core/services/file_system_service.dart';
+import 'package:fluenj/ui/editor/custom/code_editor_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
-import 'package:re_editor/re_editor.dart';
-
-import '../services/file_system_service.dart';
 
 /// Uma aba do editor: caminho + controller de edição + flag de "modificado".
 class EditorTab {
@@ -14,10 +13,13 @@ class EditorTab {
 
   final String path;
   final String name;
-  final CodeLineEditingController controller;
+  final CodeEditorController controller;
 
   /// Indica alterações não salvas (refletido no título da aba com "•").
   bool isDirty = false;
+
+  /// Override do language mode (null = auto-detectar por extensão).
+  String? languageOverride;
 
   void dispose() => controller.dispose();
 }
@@ -53,7 +55,7 @@ class EditorNotifier extends Notifier<EditorState> {
     }
 
     final content = await _fs.readText(path);
-    final controller = CodeLineEditingController.fromText(content);
+    final controller = CodeEditorController(text: content);
     final tab = EditorTab(
       path: path,
       name: p.basename(path),
@@ -96,6 +98,14 @@ class EditorNotifier extends Notifier<EditorState> {
       tab.isDirty = false;
       _emit();
     }
+  }
+
+  /// Troca o language mode da aba ativa (null = auto-detectar por extensão).
+  void setLanguage(String? languageId) {
+    final tab = state.active;
+    if (tab == null) return;
+    tab.languageOverride = languageId;
+    _emit();
   }
 
   void _onChanged(EditorTab tab) {

@@ -1,10 +1,9 @@
 import 'dart:io';
 
+import 'package:fluenj/core/models/file_node.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:xml/xml.dart';
-
-import '../models/file_node.dart';
 
 enum BuildType { maven, gradle, standalone }
 
@@ -72,7 +71,7 @@ class ProjectStructureService {
     for (final sf in javaSourceFolders(root)) {
       final node = FileNode(
         path: sf,
-        name: p.relative(sf, from: root).replaceAll('\\', '/'),
+        name: p.relative(sf, from: root).replaceAll(r'\', '/'),
         isDir: true,
         kind: NodeKind.sourceFolder,
       );
@@ -83,7 +82,7 @@ class ProjectStructureService {
     for (final rf in resourceFolders(root)) {
       final node = FileNode(
         path: rf,
-        name: p.relative(rf, from: root).replaceAll('\\', '/'),
+        name: p.relative(rf, from: root).replaceAll(r'\', '/'),
         isDir: true,
         kind: NodeKind.folder,
       );
@@ -237,7 +236,7 @@ class ProjectStructureService {
         result.add(_lib(label, NodeKind.library));
       }
       return result;
-    } catch (_) {
+    } on Object catch (_) {
       return const [];
     }
   }
@@ -275,7 +274,7 @@ class ProjectStructureService {
   List<FileSystemEntity> _listSafe(String dir) {
     try {
       return Directory(dir).listSync(followLinks: false);
-    } catch (_) {
+    } on Object catch (_) {
       return const [];
     }
   }

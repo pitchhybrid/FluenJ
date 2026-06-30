@@ -1,9 +1,8 @@
+import 'package:fluenj/core/state/editor.dart';
+import 'package:fluenj/ui/editor/code_editor_view.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/state/editor.dart';
-import 'code_editor_view.dart';
 
 /// Área do editor: barra de abas + editor de código do arquivo ativo.
 class EditorArea extends ConsumerWidget {

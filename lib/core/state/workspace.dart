@@ -6,6 +6,8 @@ import 'package:path/path.dart' as p;
 class WorkspaceState {
   const WorkspaceState({this.rootPath, this.name = ''});
 
+  factory WorkspaceState.closed() => const WorkspaceState();
+
   /// Caminho absoluto da pasta do projeto, ou `null` se nenhuma está aberta.
   final String? rootPath;
 
@@ -13,8 +15,6 @@ class WorkspaceState {
   final String name;
 
   bool get isOpen => rootPath != null;
-
-  factory WorkspaceState.closed() => const WorkspaceState();
 }
 
 /// Gerencia a pasta de projeto aberta.

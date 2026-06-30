@@ -1,11 +1,10 @@
+import 'package:fluenj/core/models/file_node.dart';
+import 'package:fluenj/core/state/editor.dart';
+import 'package:fluenj/core/state/file_tree.dart' show linearizeVisible;
+import 'package:fluenj/core/state/package_tree.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/models/file_node.dart';
-import '../../core/state/editor.dart';
-import '../../core/state/file_tree.dart' show linearizeVisible;
-import '../../core/state/package_tree.dart';
 
 /// Package explorer (árvore lógica estilo Eclipse): source folders, pacotes,
 /// classes, Libraries e WebApp.
@@ -43,11 +42,11 @@ class _PackageTile extends ConsumerWidget {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
+      onTap: () async {
         if (node.isDir) {
           ref.read(packageTreeProvider.notifier).toggle(node);
         } else if (node.path.isNotEmpty) {
-          ref.read(editorProvider.notifier).openFile(node.path);
+          await ref.read(editorProvider.notifier).openFile(node.path);
         }
       },
       child: Padding(

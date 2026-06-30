@@ -1,7 +1,6 @@
+import 'package:fluenj/core/models/file_node.dart';
+import 'package:fluenj/core/services/file_system_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/file_node.dart';
-import '../services/file_system_service.dart';
 
 /// Snapshot da árvore de arquivos do explorador.
 class FileTreeState {

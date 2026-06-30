@@ -28,6 +28,15 @@ class FileNode {
     this.isLoading = false,
   }) : children = children ?? [];
 
+  factory FileNode.fromEntity(FileSystemEntity entity, {int depth = 0}) {
+    return FileNode(
+      path: entity.path,
+      name: p.basename(entity.path),
+      isDir: entity is Directory,
+      depth: depth,
+    );
+  }
+
   /// Caminho absoluto (pode ser vazio em nós lógicos como "JRE").
   final String path;
 
@@ -51,15 +60,6 @@ class FileNode {
 
   /// Em processo de carregamento dos filhos.
   bool isLoading;
-
-  factory FileNode.fromEntity(FileSystemEntity entity, {int depth = 0}) {
-    return FileNode(
-      path: entity.path,
-      name: p.basename(entity.path),
-      isDir: entity is Directory,
-      depth: depth,
-    );
-  }
 
   @override
   String toString() => '$name${isDir ? '/' : ''}';

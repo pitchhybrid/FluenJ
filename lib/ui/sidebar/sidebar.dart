@@ -1,10 +1,9 @@
+import 'package:fluenj/core/state/package_tree.dart';
+import 'package:fluenj/ui/explorer/file_explorer.dart';
+import 'package:fluenj/ui/explorer/package_explorer.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-
-import '../../core/state/package_tree.dart';
-import '../explorer/file_explorer.dart';
-import '../explorer/package_explorer.dart';
 
 /// Barra lateral: seletor (Files | Packages) + explorador ativo.
 class Sidebar extends ConsumerWidget {

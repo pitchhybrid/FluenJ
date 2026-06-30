@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:fluenj/core/models/file_node.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
-
-import '../models/file_node.dart';
 
 /// Acesso ao sistema de arquivos para o explorador e o editor.
 ///
@@ -61,7 +60,7 @@ class FileSystemService {
     final bytes = await File(filePath).readAsBytes();
     try {
       return utf8.decode(bytes);
-    } catch (_) {
+    } on Object catch (_) {
       return latin1.decode(bytes);
     }
   }
