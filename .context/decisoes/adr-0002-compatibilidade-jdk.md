@@ -33,4 +33,4 @@ Há dois papéis distintos de JDK:
 - **Exigir a mesma JDK do server para os projetos** — rejeitado: o usuário escolhe a JDK do seu projeto.
 
 ## Veja também
-- [[ide-prereqs]] · [[ide-lsp-features]] · [[ide-arquitetura]] · [[ide-maven]] · [[ide-gradle]] · [[adr-0001-hux-sobre-material]]
+- [[ide/prereqs]] · [[ide/lsp-features]] · [[ide/arquitetura]] · [[ide/maven]] · [[ide/gradle]] · [[adr-0001-hux-sobre-material]]

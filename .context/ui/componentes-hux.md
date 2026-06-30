@@ -1,5 +1,7 @@
 # Componentes Hux — referência rápida
 
+> **⚠️ OBSOLETO (historico).** Superado por [[adr-0004-shadcn-ui]]. Componentes atuais: [[componentes-shadcn]].
+
 Assinaturas confirmadas na versão **hux 1.2.1** (inspecionadas no pub-cache). Import: `package:hux/hux.dart`.
 
 ## HuxButton

@@ -1,6 +1,6 @@
 # Catálogo de features do lemminx
 
-> Referência rica do **Eclipse LemMinX** (XML Language Server). Fontes: [vscode-xml README](https://github.com/redhat-developer/vscode-xml) e [LemMinX-Extensions](https://github.com/eclipse/lemminx/blob/main/docs/LemMinX-Extensions.md). Complementa [[ide-lemminx]].
+> Referência rica do **Eclipse LemMinX** (XML Language Server). Fontes: [vscode-xml README](https://github.com/redhat-developer/vscode-xml) e [LemMinX-Extensions](https://github.com/eclipse/lemminx/blob/main/docs/LemMinX-Extensions.md). Complementa [[ide/lemminx]].
 
 ## ⚠️ Binário vs Java (decisão que afeta tudo)
 | | Binário nativo (default, desde v0.15.0) | Versão Java (JAR, JDK 11+) |
@@ -52,7 +52,7 @@ O lemminx é estendido implementando `IXMLExtension` (Java SPI) e registrando *p
 | **lemminx-spring** | config XML do Spring |
 | *própria* | suporte a XML custom do domínio (ex.: config proprietária) |
 
-> Combinar com [[ide-maven]]: o **lemminx-maven** complementa o painel Maven dando completion inteligente de dependências **dentro do editor** de `pom.xml`.
+> Combinar com [[ide/maven]]: o **lemminx-maven** complementa o painel Maven dando completion inteligente de dependências **dentro do editor** de `pom.xml`.
 
 ## Settings principais (`xml.*`) — via `workspace/didChangeConfiguration`
 - **Server**: `xml.java.home`, `xml.server.vmargs`, `xml.server.workDir`, `xml.server.preferBinary`, `xml.server.binary.path`
@@ -70,12 +70,12 @@ O lemminx é estendido implementando `IXMLExtension` (Java SPI) e registrando *p
    java -cp "lemminx-uber.jar:ext/*" org.eclipse.lemminx.XMLLanguageServer
    # (ou o entrypoint equivalente do uber-jar)
    ```
-3. Reutilizar o **mesmo cliente LSP** Dart do Java (framing `Content-Length` idêntico) — é só outro server. Ver [[ide-lsp]].
+3. Reutilizar o **mesmo cliente LSP** Dart do Java (framing `Content-Length` idêntico) — é só outro server. Ver [[ide/lsp]].
 4. Roteamento por extensão: `.xml/.xsd/.xsl/.xhtml/.jspx/.tld/.fxml/.pom` → lemminx; `.java` → jdt.ls.
 
-## Sugestão de prioridade (no [[ide-roadmap]])
+## Sugestão de prioridade (no [[ide/roadmap]])
 - **Fase 5 (XML/lemminx)**: validação XSD/DTD + completion + hover + formatting + catalogs (pom.xml, web.xml, persistence.xml).
 - **Fase 6+**: extensão **lemminx-maven** (completion de Maven Central no pom), RelaxNG, XML References, Colors, surround/refactors.
 
 ## Veja também
-- [[ide-lemminx]] · [[ide-lsp]] · [[ide-maven]] · [[ide-prereqs]] · [[ide-roadmap]]
+- [[ide/lemminx]] · [[ide/lsp]] · [[ide/maven]] · [[ide/prereqs]] · [[ide/roadmap]]

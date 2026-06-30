@@ -1,6 +1,6 @@
-# myide IDE — visão geral
+# FluenJ IDE — visão geral
 
-**myide** está se tornando uma **IDE para Java** estilo Eclipse (versão básica), em Flutter desktop (Windows/Linux/macOS).
+**FluenJ** está se tornando uma **IDE para Java** estilo Eclipse (versão básica), em Flutter desktop (Windows/Linux/macOS).
 
 ## Objetivo
 Um editor/IDE Java local que reúne: edição com inteligência de linguagem (LSP/JDT LS), depuração (DAP), build (Maven/Gradle) e suporte a XML/XHTML (lemminx).
@@ -29,7 +29,7 @@ O Flutter desktop tem acesso a **`dart:io`** (Process, FileSystem), então o app
 ## Comparações / referências
 - Eclipse, VS Code + "Extension Pack for Java", IntelliJ Community — modelos de UX.
 - nvim-jdtls / coc-java — exemplos de clients LSP Java fora do VS Code.
-- O app é, em essência, um **client LSP/DAP** em Dart com UI em Flutter/Hux.
+- O app é, em essência, um **client LSP/DAP** em Dart com UI em Flutter/shadcn_ui.
 
 ## Veja também
-- [[ide-arquitetura]] · [[ide-prereqs]] · [[ide-roadmap]] · [[visao-geral]]
+- [[ide/arquitetura]] · [[ide/prereqs]] · [[ide/roadmap]] · [[visao-geral]]

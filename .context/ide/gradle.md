@@ -1,6 +1,6 @@
 # Componente — Gradle integration
 
-> Parte de [[ide-arquitetura]]. Fase 4.
+> Parte de [[ide/arquitetura]]. Fase 4.
 
 ## Detecção de projeto Gradle
 - Presença de `build.gradle` (Groovy DSL) ou `build.gradle.kts` (Kotlin DSL), junto de `settings.gradle(.kts)` e `gradlew`.
@@ -41,4 +41,4 @@
 - ANSIfication do output: usar `--console=plain` para evitar escapes.
 
 ## Veja também
-- [[ide-gradle-features]] (Tooling API vs CLI; **jdt.ls/Buildship já resolve estrutura/classpath**) · [[ide-maven]] · [[ide-prereqs]] · [[ide-lsp]] · [[ide-explorers]]
+- [[ide/gradle-features]] (Tooling API vs CLI; **jdt.ls/Buildship já resolve estrutura/classpath**) · [[ide/maven]] · [[ide/prereqs]] · [[ide/lsp]] · [[ide/explorers]]

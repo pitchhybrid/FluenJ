@@ -1,43 +1,46 @@
-# myide IDE — stack de pacotes Dart/Flutter
+# FluenJ IDE — stack de pacotes Dart/Flutter
 
-Pacotes confirmados no pub.dev (versões e score verificados).
+Pacotes do `pubspec.yaml` (versões e score verificados). Origem das decisões: ADRs e [[pesquisa/flutter-estado-da-arte-2026]].
 
-## UI / base
+## Em uso (pubspec.yaml)
+
+### UI / base
 | Pacote | Versão | Uso |
 |---|---|---|
-| `shadcn_ui` | 0.52.3 ✅ | **UI** — `ShadApp` puro (zero Material); ver [[adr-0004-shadcn-ui]] |
-| `re_editor` | 0.9.0 | **editor de código** (alta perf, mantido — Reqable) |
-| `flutter_directory_tree` | 1.0.0 | **tree view** desktop (virtualizado, multi-root) — explorers |
+| `shadcn_ui` | ^0.52.3 | **UI** — `ShadApp` puro (zero Material) — [[adr-0004-shadcn-ui]] |
+| `flutter_riverpod` | ^3.3.2 | **estado** — `Notifier`/`NotifierProvider` — [[adr-0003-riverpod]] |
+| `window_manager` | ^0.5.1 | janela **frameless** (title bar custom) |
+| _(editor de código)_ | — | **editor próprio** do zero (`CustomPaint` + `TextPainter`) — [[adr-0008-editor-proprio]] |
+| `re_highlight` | ^0.0.3 | syntax highlight (parser, java/json/xml) — **mantido**, não é editor |
+| `multi_split_view` | ^3.6.2 | layout multi-painel |
+| `file_picker` | ^8.0.7 | diálogos (Open Folder) |
+| `lucide_icons_flutter` | ^3.1.14+2 | ícones (em vez de Material `Icons.*`) |
+| `xml` | ^7.0.1 | ler/escrever `pom.xml` e XML |
+| `path` / `collection` | — | utilitários |
 
-## Terminal
+### Dev (testes / lints)
 | Pacote | Versão | Uso |
 |---|---|---|
-| `xterm` | 4.0.0 | **emulador de terminal** (render na UI, 256/truecolor, mouse) |
-| `flutter_pty` | 0.4.2 | **PTY nativo** — spawn de shell real com TTY (ConPTY no Windows) |
+| `very_good_analysis` | ^10.3.0 | **lints** (preset VGV rigoroso, gate de CI) — [[adr-0005-tooling-testes-2026]] (substituiu `flutter_lints`) |
+| `alchemist` | ^0.14.0 | **golden tests** sem flakiness de fonte/render (contorna o proxy NTLM no CI) |
+| `mocktail` | ^1.0.5 | mocks sem codegen |
+| `integration_test` | (sdk) | testes E2E |
+| `flutter_test` | (sdk) | testes de widget |
 
-## Syntax highlighting
-- `re_editor` traz highlight próprio; para mais linguagens, complementar com o pacote `highlight` (highlight.js) se necessário.
+## Planejados (Fase 2+ — ainda NÃO no pubspec)
+| Pacote | Versão alvo | Uso | Quando |
+|---|---|---|---|
+| `json_rpc_2` | ^4.1.0 | **JSON-RPC 2.0** — base do LSP/DAP | Fase 2 (LSP) — [[adr-0007-runtime-libs-ide]] |
+| `xterm` | ^4.0.0 | emulador de terminal | Fase 1.5 (terminal) |
+| `flutter_pty` | ^0.4.2 | PTY nativo (ConPTY) | Fase 1.5 (terminal) |
+| `desktop_multi_window` | — | multi-window (janelas separadas) | Fase 7+ |
+| `hotkey_manager` | — | atalhos globais Win/Linux/macOS | quando necessário |
 
-## Protocolo / transporte
-| Pacote | Versão | Uso |
-|---|---|---|
-| `json_rpc_2` | 4.1.0 | **JSON-RPC 2.0** — base do LSP e do DAP |
-| `lsp_server` | 0.4.0 | **tipos LSP em Dart** (referência/reuso dos models) |
+> Transporte LSP (framing `Content-Length` + stdio) sobre `json_rpc_2`. Tipos LSP podem reusar `lsp_server` (server-side, mas expõe os models gerados da spec).
 
-> `lsp_server` é "server-side", mas expõe os tipos LSP gerados a partir da spec — útil como fonte de models para o nosso cliente. O transporte (framing `Content-Length` + stdio) implementamos sobre `json_rpc_2`.
-
-## Parsing / dados
-| Pacote | Uso |
-|---|---|
-| `xml` | ler/escrever `pom.xml` e outros XML |
-| `dart:io` (built-in) | Process spawn, FileSystem, stdin/stdout |
-
-## Processos externos (não-Dart, orquestrados)
-Eclipse JDT LS, java-debug (bundles), lemminx, Maven, Gradle — ver [[ide-prereqs]].
-
-## Decisões pendentes
-- State management: sem lib ainda no app base. Para uma IDE (muito estado, abas, eventos), avaliar **Riverpod** ou **Bloc** ao entrar na Fase 1. Registrar em ADR quando decidir.
-- Editor ↔ LSP binding: como o `re_editor` expõe completion/diagnostic overlays.
+## Avaliados e rejeitados
+- **`code_forge` 10.6.0** — editor rust-backed com LSP embutido. **Refutado pelo spike** ([[pesquisa/spike-code-forge]]): exige build rust via cargokit (inviável no ambiente: proxy NTLM + bug de path). Fica como `watch`. Manter `re_editor`.
+- **`riverpod_generator` 4.x** — codegen Riverpod. **Incompatível** com `flutter_riverpod` 3.3.2 (cobre só até riverpod 3.0.3). Adiado — [[adr-0006-riverpod-codegen]].
 
 ## Veja também
-- [[ide-arquitetura]] · [[ide-editor]] · [[ide-lsp]] · [[ide-roadmap]] · [[adr-0001-hux-sobre-material]]
+[[ide/arquitetura]] · [[ide/editor]] · [[ide/lsp]] · [[ide/roadmap]] · [[adr-0004-shadcn-ui]] · [[adr-0005-tooling-testes-2026]] · [[adr-0007-runtime-libs-ide]]

@@ -1,6 +1,6 @@
 # Catálogo de features — Editor (re_editor)
 
-> Referência da API do **re_editor** (0.9.0). Fonte: [README reqable/re-editor](https://github.com/reqable/re-editor). Complementa [[ide-editor]].
+> Referência da API do **re_editor** (0.9.0). Fonte: [README reqable/re-editor](https://github.com/reqable/re-editor). Complementa [[ide/editor]].
 
 > re_editor **não é baseado em `TextField`** — implementa layout/desenho/eventos próprios, otimizado para textos grandes. É "leve": **não tem análise semântica** — por isso os prompts/completion devem vir do **LSP** (jdt.ls/lemminx).
 
@@ -30,7 +30,7 @@ CodeEditorStyle(
 )
 ```
 - Baseado em **re-highlight** (~100 linguagens + temas). Prover gramáticas de **Java, Groovy/Kotlin (Gradle DSL), XML/HTML**.
-- Para destaque **semântico** (variável vs campo vs método vs tipo) — opção futura: sobrepor com `textDocument/semanticTokens` do jdt.ls ([[ide-lsp-features]]).
+- Para destaque **semântico** (variável vs campo vs método vs tipo) — opção futura: sobrepor com `textDocument/semanticTokens` do jdt.ls ([[ide/lsp-features]]).
 
 ## Line numbers + folding (indicatorBuilder)
 ```dart
@@ -88,4 +88,4 @@ EditorTab { path, controller: CodeLineEditingController, dirty, cursor, breakpoi
 - Manter o controller vivo por aba; reconectar ao LSP ao trocar de aba (`didOpen`/`didClose`).
 
 ## Veja também
-- [[ide-editor]] · [[ide-lsp]] · [[ide-lsp-features]] · [[ide-dap]] · [[ide-stack]]
+- [[ide/editor]] · [[ide/lsp]] · [[ide/lsp-features]] · [[ide/dap]] · [[ide/stack]]

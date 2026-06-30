@@ -1,8 +1,8 @@
 # Catálogo de features do JDT LS
 
-> Referência rica dos recursos do **Eclipse JDT Language Server** além do básico (completion/hover/diagnostics). Fonte: [README oficial](https://github.com/eclipse-jdtls/eclipse.jdt.ls). Complementa [[ide-lsp]].
+> Referência rica dos recursos do **Eclipse JDT Language Server** além do básico (completion/hover/diagnostics). Fonte: [README oficial](https://github.com/eclipse-jdtls/eclipse.jdt.ls). Complementa [[ide/lsp]].
 
-> ⚠️ **Requisito**: o jdt.ls exige **Java 21+** para *rodar* (compila projetos de **1.8 a 24**). Ver [[ide-prereqs]].
+> ⚠️ **Requisito**: o jdt.ls exige **Java 21+** para *rodar* (compila projetos de **1.8 a 24**). Ver [[ide/prereqs]].
 
 ## Visão por categoria (suportado oficialmente)
 
@@ -82,12 +82,12 @@ O jdt.ls expõe **30+** comandos (via `JDTDelegateCommandHandler`). Principais:
 > Lista completa/atual está nos fontes do jdt.ls (`org.eclipse.jdt.ls.core`); confirmar cada comando antes de depender.
 
 ## Conexão (além de stdio)
-O jdt.ls aceita **stdio** (padrão), **socket** (`-DCLIENT_PORT=…`) e **named pipe**. Socket/pipe podem simplificar a coexistência **LSP + DAP** no mesmo processo. Ver [[ide-dap]].
+O jdt.ls aceita **stdio** (padrão), **socket** (`-DCLIENT_PORT=…`) e **named pipe**. Socket/pipe podem simplificar a coexistência **LSP + DAP** no mesmo processo. Ver [[ide/dap]].
 
-## Sugestão de prioridade por fase (mapear no [[ide-roadmap]])
+## Sugestão de prioridade por fase (mapear no [[ide/roadmap]])
 - **Fase 2 (core LSP)**: completion, hover, diagnostics, definition, references, formatting, organize imports.
 - **Fase 3**: code actions (quickfix + source generate), rename, document/workspace symbol, outline, folding, documentHighlight, signatureHelp.
 - **Fase 4+**: type/call hierarchy, code lens (Run/Debug pós-DAP), inlay hints, semantic tokens, extract/inline, file-ops rename.
 
 ## Veja também
-- [[ide-lsp]] · [[ide-editor]] · [[ide-open-types-symbols]] · [[ide-prereqs]] · [[ide-roadmap]]
+- [[ide/lsp]] · [[ide/editor]] · [[ide/open-types-symbols]] · [[ide/prereqs]] · [[ide/roadmap]]

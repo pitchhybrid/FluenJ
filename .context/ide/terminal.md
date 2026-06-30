@@ -1,6 +1,6 @@
 # Componente — Terminal integration
 
-> Parte de [[ide-arquitetura]]. Painel inferior de terminal embutido (como VS Code / Eclipse).
+> Parte de [[ide/arquitetura]]. Painel inferior de terminal embutido (como VS Code / Eclipse).
 
 ## O que é
 Um terminal **real** dentro da IDE: roda o shell nativo do usuário com **TTY**, suportando cores (256/truecolor), mouse, e programas interativos (`vim`, `less`, `top`, `htop`). Não é só "capturar stdout de um Process" — precisa de **PTY**.
@@ -39,7 +39,7 @@ Um terminal **real** dentro da IDE: roda o shell nativo do usuário com **TTY**,
 - **Múltiplos terminais** (abas), **split** (lado a lado), **kill**, **clear**, **copy/paste**.
 - Dropdown para escolher perfil (PowerShell, cmd, Git Bash, WSL no Windows).
 - Botão "+" e atalho `Ctrl+`` para abrir/fechar.
-- Integração: botão "Run in Terminal" em tasks Maven/Gradle e em run configs (ver [[ide-maven]], [[ide-gradle]]) — em vez de só capturar stdout, roda no terminal real (interativo).
+- Integração: botão "Run in Terminal" em tasks Maven/Gradle e em run configs (ver [[ide/maven]], [[ide/gradle]]) — em vez de só capturar stdout, roda no terminal real (interativo).
 
 ## Model (Dart)
 ```
@@ -63,4 +63,4 @@ TerminalService {
 - Segurança: o terminal executa comandos arbitrários do usuário (esperado numa IDE).
 
 ## Veja também
-- [[ide-stack]] · [[ide-arquitetura]] · [[ide-roadmap]] · [[ide-maven]] · [[ide-gradle]]
+- [[ide/stack]] · [[ide/arquitetura]] · [[ide/roadmap]] · [[ide/maven]] · [[ide/gradle]]

@@ -1,6 +1,6 @@
 # Componente — DAP (Debug Adapter Protocol, Java)
 
-> Parte de [[ide-arquitetura]]. A parte mais complexa — deixar para a Fase 6.
+> Parte de [[ide/arquitetura]]. A parte mais complexa — deixar para a Fase 6.
 
 ## Como o debug Java funciona
 **`java-debug` (Microsoft) NÃO é um DAP server standalone.** É um **bundle OSGi carregado dentro do jdt.ls**. Assim:
@@ -47,4 +47,4 @@
 - Abordagem simples (inicial): **um processo para LSP** (edição) e **outro processo** (com bundles java-debug) **lançado sob demanda** para a sessão de debug — isolamento de falhas.
 
 ## Veja também
-- [[ide-dap-features]] (catálogo de features DAP/java-debug: HCR, step filters, etc.) · [[ide-lsp]] · [[ide-prereqs]] · [[ide-roadmap]]
+- [[ide/dap-features]] (catálogo de features DAP/java-debug: HCR, step filters, etc.) · [[ide/lsp]] · [[ide/prereqs]] · [[ide/roadmap]]

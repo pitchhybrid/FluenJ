@@ -1,6 +1,6 @@
 # Catálogo de features — Gradle integration
 
-> Referência rica: **Tooling API vs CLI**, e como o Gradle se encaixa no myide. Fontes: [Tooling API](https://docs.gradle.org/current/userguide/tooling_api.html), [Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html). Complementa [[ide-gradle]].
+> Referência rica: **Tooling API vs CLI**, e como o Gradle se encaixa no myide. Fontes: [Tooling API](https://docs.gradle.org/current/userguide/tooling_api.html), [Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html). Complementa [[ide/gradle]].
 
 ## 💡 Insight central: o jdt.ls já resolve o Gradle (estrutura)
 O **Eclipse JDT LS embute o [Buildship](https://github.com/eclipse/buildship)** (suporte Gradle) — igual ao M2Eclipse para Maven. Ou seja:
@@ -42,4 +42,4 @@ O **Eclipse JDT LS embute o [Buildship](https://github.com/eclipse/buildship)** 
 - Detectar settings: `settings.gradle(.kts)` (inclui `include`), `gradle.properties`, `init.d`.
 
 ## Veja também
-- [[ide-gradle]] · [[ide-maven]] · [[ide-lsp]] · [[ide-prereqs]] · [[adr-0002-compatibilidade-jdk]]
+- [[ide/gradle]] · [[ide/maven]] · [[ide/lsp]] · [[ide/prereqs]] · [[adr-0002-compatibilidade-jdk]]

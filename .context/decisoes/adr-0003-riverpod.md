@@ -3,7 +3,7 @@
 **Status:** Aceito · **Data:** 2026-06-25
 
 ## Contexto
-A IDE tem muito estado: projetos abertos, abas de editor (múltiplas, com dirty/ctrl), árvore de arquivos, sessões de terminal, eventos de linguagem (futuro LSP/DAP) e builds. Precisávamos de um state-management robusto antes da Fase 1 (ver [[ide-stack]]).
+A IDE tem muito estado: projetos abertos, abas de editor (múltiplas, com dirty/ctrl), árvore de arquivos, sessões de terminal, eventos de linguagem (futuro LSP/DAP) e builds. Precisávamos de um state-management robusto antes da Fase 1 (ver [[ide/stack]]).
 
 ## Decisão
 Adotar **Riverpod** (`flutter_riverpod`) como camada de estado da IDE.
@@ -25,4 +25,4 @@ Adotar **Riverpod** (`flutter_riverpod`) como camada de estado da IDE.
 - **GetX/MobX**: menos alinhados ao ecossistema atual do Flutter.
 
 ## Veja também
-- [[ide-stack]] · [[ide-arquitetura]] · [[ide-roadmap]] · [[adr-0001-hux-sobre-material]]
+- [[ide/stack]] · [[ide/arquitetura]] · [[ide/roadmap]] · [[adr-0001-hux-sobre-material]]

@@ -55,4 +55,4 @@ java -jar org.eclipse.lemminx-<versão>-uber.jar     # JAR (requer Java)
 - Cache de versões para não baixar a cada run.
 
 ## Veja também
-- [[ide-arquitetura]] · [[ide-lsp]] · [[ide-dap]] · [[ide-lemminx]] · [[ambiente-desenvolvimento]]
+- [[ide/arquitetura]] · [[ide/lsp]] · [[ide/dap]] · [[ide/lemminx]] · [[ambiente-desenvolvimento]]

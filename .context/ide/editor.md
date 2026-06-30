@@ -1,6 +1,6 @@
 # Componente — Editor de código
 
-> Parte de [[ide-arquitetura]]. Fases 1–3.
+> Parte de [[ide/arquitetura]]. Fases 1–3.
 
 ## Widget base: `re_editor` (0.9.0)
 Editor leve, performático, ativamente mantido (Reqable). Suporta:
@@ -16,7 +16,7 @@ Alternativas (não escolhidas): `code_text_field`/`code_field` (menos mantidos),
 - Estado por aba: caminho, conteúdo, cursor, dirty (modificado), encoding.
 - Fechar com confirm se dirty; "close others/close all".
 
-## Integração com LSP ([[ide-lsp]])
+## Integração com LSP ([[ide/lsp]])
 - `re_editor.onChange` → `textDocument/didChange` (incremental se possível).
 - Diagnostics: mapear `publishDiagnostics` → **squiggles** no editor (overlay).
 - Completion: na posição do cursor, chamar `textDocument/completion` → popup (HuxDropdown/popover).
@@ -28,7 +28,7 @@ Alternativas (não escolhidas): `code_text_field`/`code_field` (menos mantidos),
 - `re_editor` usa um `CodeLine`/highlighter; fornecer gramática de Java (palavras-chave, strings, comentários, anotações, números).
 - Gramáticas para XML/Gradle (Groovy/Kotlin) também — ou delegar o destaque de XML ao lemminx quando houver.
 
-## Integração com DAP ([[ide-dap]])
+## Integração com DAP ([[ide/dap]])
 - Gutter de **breakpoints** (toggle na margem esquerda).
 - Linha atual de execução destacada quando `stopped`.
 - Hover de variável → `evaluate`.
@@ -48,4 +48,4 @@ EditorState {
 - Tamanho de arquivo: limiar para abrir em modo "read-only grande" (evitar travar o editor).
 
 ## Veja também
-- [[ide-editor-features]] (API do re_editor + integrações LSP/DAP) · [[ide-lsp]] · [[ide-dap]] · [[ide-stack]] · [[ide-explorers]]
+- [[ide/editor-features]] (API do re_editor + integrações LSP/DAP) · [[ide/lsp]] · [[ide/dap]] · [[ide/stack]] · [[ide/explorers]]

@@ -1,6 +1,6 @@
 # Componente — Open Types / Open Symbols
 
-> Parte de [[ide-arquitetura]]. Fase 3. Inspirado no "Open Type" (Ctrl+Shift+T) do Eclipse / VS Code.
+> Parte de [[ide/arquitetura]]. Fase 3. Inspirado no "Open Type" (Ctrl+Shift+T) do Eclipse / VS Code.
 
 ## O que são
 - **Open Type** — busca rápida por **tipos** (classes/interfaces/enums) do workspace e dependências, pelo nome.
@@ -33,4 +33,4 @@
 5. Se for classe de lib → o jdt.ls pode **decompilar** (`java.decompile`) ou abrir source anexada.
 
 ## Veja também
-- [[ide-lsp]] · [[ide-editor]] · [[ide-arquitetura]]
+- [[ide/lsp]] · [[ide/editor]] · [[ide/arquitetura]]

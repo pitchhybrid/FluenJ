@@ -1,8 +1,8 @@
 # Catálogo de features — DAP / java-debug
 
-> Referência rica de **Debug Adapter Protocol** + **java-debug** (Microsoft). Fontes: [VS Code Java debugging](https://code.visualstudio.com/docs/java/java-debugging), [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug), [DebugAgent comparison](https://debugagent.com/what-are-you-missing-by-debugging-in-vs-code). Complementa [[ide-dap]].
+> Referência rica de **Debug Adapter Protocol** + **java-debug** (Microsoft). Fontes: [VS Code Java debugging](https://code.visualstudio.com/docs/java/java-debugging), [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug), [DebugAgent comparison](https://debugagent.com/what-are-you-missing-by-debugging-in-vs-code). Complementa [[ide/dap]].
 
-> Relembre: o java-debug é um **bundle dentro do jdt.ls**; o DAP roda sobre stdio do mesmo processo. Ver [[ide-dap]] e [[adr-0002-compatibilidade-jdk]].
+> Relembre: o java-debug é um **bundle dentro do jdt.ls**; o DAP roda sobre stdio do mesmo processo. Ver [[ide/dap]] e [[adr-0002-compatibilidade-jdk]].
 
 ## DAP — padrão (aplicável a qualquer adapter)
 | Recurso | Uso |
@@ -52,10 +52,10 @@
 - **Attach**: `{ hostName, port }` para JVM com `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005`.
 - **HCR** é a feature "mágica" que aproxima a experiência do IntelliJ — priorizar.
 
-## Sugestão de prioridade (no [[ide-roadmap]], Fase 6)
+## Sugestão de prioridade (no [[ide/roadmap]], Fase 6)
 - **Core**: launch/attach, breakpoints de linha/conditional/logpoint, step, stack, variables, console.
 - **Sequência**: evaluate/watch, step filters, exception breakpoints.
 - **Diferencial**: **Hot Code Replace**, code lens Run|Debug, method/field breakpoints.
 
 ## Veja também
-- [[ide-dap]] · [[ide-lsp-features]] · [[ide-roadmap]] · [[ide-editor]]
+- [[ide/dap]] · [[ide/lsp-features]] · [[ide/roadmap]] · [[ide/editor]]

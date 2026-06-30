@@ -1,6 +1,6 @@
 # Componente — lemminx (XML/XHTML LSP)
 
-> Parte de [[ide-arquitetura]]. Fase 5.
+> Parte de [[ide/arquitetura]]. Fase 5.
 
 ## O que é
 **Eclipse LemMinX** — Language Server (LSP) para **XML/XHTML** da Red Hat/Eclipse. Dá:
@@ -25,7 +25,7 @@ Arquivos comuns em projetos Java que são **XML**:
 - Launch:
   - JAR: `java -jar org.eclipse.lemminx-<v>-uber.jar`
   - ou **binário nativo** (desde v0.15.0): `./lemminx-<os>` — sem Java.
-- ⚠️ **Trade-off**: só a **versão Java** suporta **extensões** (ex.: lemminx-maven p/ pom.xml). Para IDE Java, rodar a versão Java. Detalhes em [[ide-lemminx-features]].
+- ⚠️ **Trade-off**: só a **versão Java** suporta **extensões** (ex.: lemminx-maven p/ pom.xml). Para IDE Java, rodar a versão Java. Detalhes em [[ide/lemminx-features]].
 - Reutiliza o **mesmo cliente LSP** Dart do Java (framing idêntico), só com outro binário e settings.
 
 ## Schema / catalog awareness
@@ -45,8 +45,8 @@ Arquivos comuns em projetos Java que são **XML**:
 - `xml.server.binary.path` / `xml.server.vmargs` (se empacotado)
 
 ## Detalhes
-- Reaproveitar o cliente LSP genérico ([[ide-lsp]]) — lemminx é "só" outro server.
+- Reaproveitar o cliente LSP genérico ([[ide/lsp]]) — lemminx é "só" outro server.
 - Diagnósticos de XML aparecem no mesmo painel "Problems".
 
 ## Veja também
-- [[ide-lemminx-features]] (catálogo completo de features/extensões do lemminx) · [[ide-lsp]] · [[ide-prereqs]] · [[ide-arquitetura]] · [[ide-editor]]
+- [[ide/lemminx-features]] (catálogo completo de features/extensões do lemminx) · [[ide/lsp]] · [[ide/prereqs]] · [[ide/arquitetura]] · [[ide/editor]]

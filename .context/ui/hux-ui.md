@@ -1,5 +1,7 @@
 # Hux UI — guia de uso
 
+> **⚠️ OBSOLETO (historico).** Superado por [[adr-0004-shadcn-ui]] — a UI do FluenJ agora usa shadcn_ui. Esta nota fica apenas como registro da fase Hux.
+
 O **Hux UI** (`package:hux/hux.dart`, v1.2.1) é uma camada de componentes **construída sobre o Material**. Não tem app root próprio (diferente do shadcn, que tem `ShadApp`). Ver [[adr-0001-hux-sobre-material]].
 
 ## Regra de ouro

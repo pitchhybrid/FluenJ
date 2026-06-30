@@ -27,12 +27,12 @@
 - **LSP**: completion, hover, definition, references, rename, diagnostics, **document/workspace symbols** (open types/symbols), formatação.
 - **DAP**: ao carregar os **bundles `java-debug`** (Microsoft), o mesmo processo passa a também falar **Debug Adapter Protocol** sobre stdio.
 
-> ⚠️ `java-debug` **não é um DAP server standalone** — é um *bundle OSGi carregado dentro do jdt.ls*. Para depurar, lança-se o jdt.ls **com** os bundles java-debug e fala-se DAP pelo stdio dele. Ver [[ide-dap]].
+> ⚠️ `java-debug` **não é um DAP server standalone** — é um *bundle OSGi carregado dentro do jdt.ls*. Para depurar, lança-se o jdt.ls **com** os bundles java-debug e fala-se DAP pelo stdio dele. Ver [[ide/dap]].
 
 Processos independentes:
-- **shell (PTY)** — terminal integrado via `flutter_pty` (bash/pwsh/cmd/zsh). Ver [[ide-terminal]].
-- **lemminx** — LSP próprio (XML/XHTML), processo à parte. Ver [[ide-lemminx]].
-- **mvn / gradlew** — processos efêmeros (uma execução por build/run). Ver [[ide-maven]], [[ide-gradle]].
+- **shell (PTY)** — terminal integrado via `flutter_pty` (bash/pwsh/cmd/zsh). Ver [[ide/terminal]].
+- **lemminx** — LSP próprio (XML/XHTML), processo à parte. Ver [[ide/lemminx]].
+- **mvn / gradlew** — processos efêmeros (uma execução por build/run). Ver [[ide/maven]], [[ide/gradle]].
 
 ## Transporte LSP/DAP (JSON-RPC sobre stdio)
 Formato das mensagens (base protocol do LSP):
@@ -62,4 +62,4 @@ Content-Length: <nbytes>\r\n
 - Editor state (arquivos abertos, cursor, sujo/não) isolado da camada de linguagem.
 
 ## Veja também
-- [[ide-lsp]] · [[ide-dap]] · [[ide-stack]] · [[ide-prereqs]] · [[arquitetura]]
+- [[ide/lsp]] · [[ide/dap]] · [[ide/stack]] · [[ide/prereqs]] · [[arquitetura]]

@@ -31,4 +31,4 @@ Migrar a UI de **Hux UI → `shadcn_ui`**, usando **`ShadApp` como root puro (se
 - **fluent_ui** — rejeitado: visual Windows-only; a IDE é Windows/Linux/macOS.
 
 ## Veja também
-[[adr-0001-hux-sobre-material]] (superado) · [[ide-stack]] · [[ide-arquitetura]] · [[adr-0003-riverpod]]
+[[adr-0001-hux-sobre-material]] (superado) · [[ide/stack]] · [[ide/arquitetura]] · [[adr-0003-riverpod]]
